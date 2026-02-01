@@ -1,0 +1,250 @@
+/* CSS Variables for Theming */
+:root {
+  --body-bg: #f4f4f9;
+  --container-bg: #fff;
+  --container-shadow: rgba(0, 0, 0, 0.1);
+  --text-color: #333;
+  --border-color: #eee;
+  --chat-box-bg: #e5ddd5;
+  --user-bubble-bg: #dcf8c6;
+  --user-bubble-text: #000;
+  --bot-bubble-bg: #ffffff;
+  --bot-bubble-text: #333;
+  --form-bg: #f0f0f0;
+  --input-border: #ddd;
+  --input-focus-border: #075e54;
+  --button-bg: #128c7e;
+  --button-text: white;
+  --button-disabled-bg: #999;
+}
+
+body.dark-mode {
+  --body-bg: #121212;
+  --container-bg: #1e1e1e;
+  --container-shadow: rgba(255, 255, 255, 0.05);
+  --text-color: #e0e0e0;
+  --border-color: #333;
+  --chat-box-bg: #0d1418; /* Dark WhatsApp chat bg */
+  --user-bubble-bg: #056162; /* Dark WhatsApp user bubble */
+  --user-bubble-text: #e0e0e0;
+  --bot-bubble-bg: #262d31; /* Dark WhatsApp bot bubble */
+  --bot-bubble-text: #e0e0e0;
+  --form-bg: #1e1e1e;
+  --input-border: #444;
+  --input-focus-border: #00a884;
+  --button-bg: #00a884; /* Brighter green for dark mode */
+  --button-text: #111;
+  --button-disabled-bg: #555;
+}
+
+body {
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial,
+    sans-serif;
+  background-color: var(--body-bg);
+  color: var(--text-color);
+  margin: 0;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+.container {
+  width: 100%;
+  max-width: 600px;
+  background: var(--container-bg);
+  border-radius: 8px;
+  box-shadow: 0 2px 10px var(--container-shadow);
+  display: flex;
+  flex-direction: column;
+  height: 80vh;
+  max-height: 700px;
+}
+
+h1 {
+  position: relative; /* Needed for positioning the toggle */
+  text-align: center;
+  color: var(--text-color);
+  padding: 20px;
+  margin: 0;
+  border-bottom: 1px solid var(--border-color);
+  font-size: 24px;
+}
+
+.chat-box {
+  flex-grow: 1;
+  padding: 20px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  background-color: var(--chat-box-bg);
+}
+
+.message {
+  padding: 10px 15px;
+  border-radius: 18px;
+  max-width: 80%;
+  line-height: 1.5;
+  word-wrap: break-word;
+}
+
+/* Reset margin untuk elemen di dalam pesan bot */
+.message p,
+.message ol,
+.message ul {
+  margin: 0;
+  padding: 0;
+}
+
+.message p + p,
+.message p + ol,
+.message ol + p {
+  margin-top: 10px;
+}
+
+.message ol,
+.message ul {
+  padding-left: 20px; /* Indentasi untuk daftar */
+}
+
+.message.user {
+  background-color: var(--user-bubble-bg);
+  color: var(--user-bubble-text);
+  align-self: flex-end;
+  border-bottom-right-radius: 4px;
+}
+
+.message.bot {
+  background-color: var(--bot-bubble-bg);
+  color: var(--bot-bubble-text);
+  align-self: flex-start;
+  border-bottom-left-radius: 4px;
+}
+
+#chat-form {
+  display: flex;
+  padding: 15px;
+  border-top: 1px solid var(--border-color);
+  background-color: var(--form-bg);
+}
+
+#user-input {
+  flex-grow: 1;
+  border: 1px solid var(--input-border);
+  background-color: var(--bot-bubble-bg);
+  color: var(--bot-bubble-text);
+  padding: 10px 15px;
+  border-radius: 20px;
+  font-size: 16px;
+  margin-right: 10px;
+}
+
+#user-input:focus {
+  outline: none;
+  border-color: var(--input-focus-border);
+}
+
+#chat-form button {
+  background-color: var(--button-bg);
+  color: var(--button-text);
+  border: none;
+  padding: 0 20px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+#chat-form button:disabled {
+  background-color: var(--button-disabled-bg);
+  cursor: not-allowed;
+}
+
+/* Theme Toggle Switch */
+.theme-switch-wrapper {
+  position: absolute;
+  top: 50%;
+  right: 20px;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+}
+
+.theme-switch {
+  display: inline-block;
+  height: 24px;
+  position: relative;
+  width: 50px;
+}
+
+.theme-switch input {
+  display: none;
+}
+
+.slider {
+  background-color: #ccc;
+  bottom: 0;
+  cursor: pointer;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  transition: 0.4s;
+  border-radius: 24px;
+}
+
+.slider:before {
+  background-color: #fff;
+  bottom: 4px;
+  content: "";
+  height: 16px;
+  left: 4px;
+  position: absolute;
+  transition: 0.4s;
+  width: 16px;
+  border-radius: 50%;
+}
+
+input#theme-toggle:checked + .slider {
+  background-color: var(--button-bg);
+}
+
+input#theme-toggle:checked + .slider:before {
+  transform: translateX(26px);
+}
+
+/* Responsive Design for Mobile Devices */
+@media (max-width: 600px) {
+  body {
+    padding: 0;
+  }
+
+  .container {
+    width: 100%;
+    height: 100vh; /* Use full viewport height */
+    max-height: none; /* Remove max-height on mobile */
+    border-radius: 0; /* Full screen, no radius */
+    box-shadow: none; /* No shadow on mobile */
+  }
+
+  h1 {
+    padding: 15px 20px; /* Adjust padding for smaller header */
+    font-size: 20px;
+  }
+
+  .chat-box {
+    padding: 15px; /* Slightly reduce padding */
+  }
+
+  #chat-form {
+    padding: 10px; /* Reduce padding for the form */
+  }
+
+  .message {
+    max-width: 85%; /* Allow bubbles to be a bit wider */
+  }
+}
